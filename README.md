@@ -7,11 +7,11 @@ Tener instalado Python 3.x,  Mysql 5.6 o superior
 ## Instalación
 
 1. Clonar el proyecto
-   ` git clone https://github.com/Haleymhm/python-flask-contacts.git `
+   ` git clone https://github.com/Haleymhm/python-fonasa.git `
 
 2. Ingresar a la carpeta del proyecto
     ``` 
-    cd python-flask-contacts 
+    cd python-fonasa 
     ```
 
 3. Instalar las librerías
