@@ -16,7 +16,7 @@ app.secret_key = "mysecretkey"
 
 @app.route('/')
 def Index():
-    return "<h2> Prueba Técnica <strong> Python - Flask </strong> </h2>"
+    return render_template('index.html')
 
 
 
