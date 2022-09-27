@@ -1,0 +1,69 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<div class="container">
+    <div class="bg-light p-2 rounded">
+        <h3><strong> Especialistas</strong> </h3>
+        <div class="row">
+            {% with messages = get_flashed_messages()  %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <i class="fa fa-check-circle"></i>  {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            <div class="col-md-5 mb-3">
+                <div class="card card-body">
+                    <form action="/specialist-add" method="post">
+                        <div class="form-group mb-3">
+                            <input type="text" name="fullname" class="form-control" placeholder="Nombre del Especialista">
+                        </div>
+                        <div class="form-group mb-3">
+                            <select name="specialtyid" id="specialtyid" class="form-control" placeholder="Especialidad">
+                                <option value="0"> Selecione una Especialidad</option>
+                            {% for specialty in specialties %}
+                                <option value="{{specialty.0}}"> {{specialty.1}}</option>
+                            {% endfor %}
+                            </select>
+                        </div>
+                        
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-success btn-block"><i class="fa fa-save fa-lg"></i> Guardar</button>
+                        </div>          
+                    </form>
+                </div>
+            </div>
+
+            <div class="col-md-7">
+                <table class="table table-striped table-bordered table-hover table-sm table-responsive">
+                    <thead>
+                        <tr class="table-primary text-center">
+                            <td>ID</td>
+                            <td>Nombre</td>
+                            <td>Especialidad</td>
+                            <td></td>
+                        </tr>
+                    </thead>
+                    {% for specialist in specialists %}
+                    <td class="text-center">{{specialist.0}}</td>
+                    <td>{{specialist.1}}</td>
+                    <td>{{specialist.2}}</td>
+                    <td width="155px">
+                        <a href="/specialist-edit/{{specialist.0}}" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i> edit</a>
+                        <a href="/specialist-delete/{{specialist.0}}" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+    
+
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<div class="container">
+    <div class="bg-light p-2 rounded">
+        <h3><strong>Editar Especialista </strong> </h3>
+        <div class="row">
+            <div class="col-md-4 offset-md-4 mb-3">
+                <div class="card card-body">
+                    <form action="/specialist-update/{{specialist.0}}" method="post">
+                        <div class="form-group mb-3">
+                            <input type="text" name="fullname" value="{{specialist.1}}" class="form-control" placeholder="Nombre del Especialista">
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <select name="specialtyid" id="specialtyid" class="form-control" placeholder="Especialidad">
+                                <option value="0"> Selecione una Especialidad</option>
+                            {% for specialty in specialties %}
+                                <option value="{{specialty.0}}"
+                                {% if specialty.0 == specialist.2 %}
+                                    selected
+                                {% endif %}
+                                > {{specialty.1}}</option>
+                            {% endfor %}
+                            </select>
+                        </div>
+                        
+                        <div class="class="btn-group" role="group" aria-label="Basic example"">
+                            <a href="/specialist" class="btn btn-secondary"><i class="fa fa-undo fa-lg"></i> Volver</a>
+                            <button type="submit" class="btn btn-success"><i class="fa fa-save fa-lg"></i> Guardar</button>
+                        </div>          
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+    
+
+{% endblock %}
