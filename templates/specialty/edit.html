@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<div class="container">
+    <div class="bg-light p-2 rounded">
+        <h3><strong>Editar Especialidad </strong> </h3>
+        <div class="row">
+            <div class="col-md-4 offset-md-4 mb-3">
+                <div class="card card-body">
+                    <form action="/specialty-update/{{specialty.0}}" method="post">
+                        <div class="form-group mb-3">
+                            <input type="text" name="fullname" value="{{specialty.1}}" class="form-control" placeholder="Especialidad">
+                        </div>
+                        
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-success btn-block"><i class="fa fa-save fa-lg"></i> Guardar</button>
+                        </div>          
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+    
+
+{% endblock %}
