@@ -199,6 +199,21 @@ def institution_update(id):
         institution.close()
         flash('EL Registro se ha actualizado satisfactoriamente')
         return redirect(url_for('institution'))
+# INICIO DE MODULO CENTRO MEDICO
+
+# INICIO DE MODULO PACIENTES
+@app.route('/patient')
+def patient():
+    patient = mysql.connection.cursor()
+    patient.execute('SELECT institution.id, institution.name, comunas.comuna FROM institution, comunas WHERE institution.comuna_id = comunas.id')
+    data = patient.fetchall()
+    patient.close()
+    comuna = mysql.connection.cursor()
+    comuna.execute('SELECT * FROM comunas')
+    data1 = comuna.fetchall()
+    comuna.close()
+    return render_template('patient/index.html', institutions = data, comunas = data1) 
+
 
 if __name__ == '__main__':
     app.run(port = 3000, debug = True)
