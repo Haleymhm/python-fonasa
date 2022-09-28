@@ -5,25 +5,25 @@
     <div class="bg-light p-2 rounded">
         <h3><strong> Instituciones Médicas</strong> </h3>
         <div class="row">
-            {% with messages = get_flashed_messages()  %}
-                {% if messages %}
-                    {% for message in messages %}
-                        <div class="alert alert-info alert-dismissible fade show" role="alert">
-                            <i class="fa fa-check-circle"></i>  {{ message }}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
-                    {% endfor %}
-                {% endif %} 
-            {% endwith %}
-
+            
             <div class="col-md-5 mb-3">
+                {% with messages = get_flashed_messages()  %}
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-info alert-dismissible fade show" role="alert">
+                                <i class="fa fa-check-circle"></i>  {{ message }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        {% endfor %}
+                    {% endif %} 
+                {% endwith %}
                 <div class="card card-body">
                     <form action="/institution-add" method="post">
                         <div class="form-group mb-3">
                             <input type="text" name="fullname" id="fullname" class="form-control" placeholder="Nombre de la institutión">
                         </div>
                         <div class="form-group mb-3">
-                            <select name="specialtyid" id="specialtyid" class="form-control" placeholder="Comuna">
+                            <select name="comuna_id" id="comuna_id" class="form-control" placeholder="Comuna">
                                 <option value="0"> Selecione una Comuna</option>
                             {% for comuna in comunas %}
                                 <option value="{{comuna.0}}"> {{comuna.2}}</option>
@@ -32,8 +32,7 @@
                         </div>
                         <div class="form-group mb-3">
                             <label class="form-label">Dirección: </label>
-                            <textarea name="direction" id="direction" class="form-control" placeholder="Dirección" rows="3">
-                            </textarea>
+                            <textarea name="direction" id="direction" class="form-control" placeholder="Dirección" rows="3"></textarea>
 
                         </div>
                         
@@ -59,8 +58,8 @@
                     <td>{{institution.1}}</td>
                     <td>{{institution.2}}</td>
                     <td width="155px">
-                        <a href="/specialty-edit/{{institution.0}}" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i> edit</a>
-                        <a href="/specialty-delete/{{institution.0}}" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> delete</a>
+                        <a href="/institution-edit/{{institution.0}}" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i> edit</a>
+                        <a href="/institution-delete/{{institution.0}}" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> delete</a>
                     </td>
                 </tr>
                 {% endfor %}

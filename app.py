@@ -147,5 +147,58 @@ def institution():
     comuna.close()
     return render_template('institution/index.html', institutions = data, comunas = data1) 
 
+@app.route('/institution-add', methods=['POST'])
+def institution_add():
+    if request.method == 'POST':
+        fullname = request.form['fullname']
+        comuna_id = request.form['comuna_id']
+        direction = request.form['direction']
+
+        institution = mysql.connection.cursor()
+        sql = "INSERT INTO institution (name, direction ,comuna_id) VALUES ('"+fullname+"','"+direction+"', '"+comuna_id+"')"
+        
+        institution.execute(sql)
+        mysql.connection.commit()
+        institution.close()
+        flash('EL Registro se ha registrado satisfactoriamente')
+        return redirect(url_for('institution'))
+
+@app.route('/institution-delete/<string:id>', methods=['POST', 'GET'])
+def institution_delete(id):
+    institution = mysql.connection.cursor()
+    institution.execute('DELETE FROM institution WHERE id = {0}'.format(id))
+    mysql.connection.commit()
+    flash('El registro se ha ELIMINADO satisfactoriamente')
+    return redirect(url_for('institution'))
+
+@app.route('/institution-edit/<id>', methods=['POST', 'GET'])
+def institution_edit(id):
+    institution = mysql.connection.cursor()
+    sql = "SELECT * FROM institution WHERE id="+id
+    institution.execute(sql)
+    data = institution.fetchall()
+    institution.close()
+
+    comuna = mysql.connection.cursor()
+    comuna.execute('SELECT * FROM comunas')
+    data1 = comuna.fetchall()
+    comuna.close()
+    
+    return render_template('institution/edit.html', institution = data[0], comunas = data1)
+
+@app.route('/institution-update/<id>', methods=['POST', 'GET'])
+def institution_update(id):
+    if request.method == 'POST':
+        fullname = request.form['fullname']
+        comuna_id = request.form['comuna_id']
+        direction = request.form['direction']
+        institution = mysql.connection.cursor()
+        sql ="UPDATE institution SET name ='"+fullname+"', direction='"+direction+"', comuna_id='"+comuna_id+"' WHERE id="+id
+        institution.execute(sql)
+        mysql.connection.commit()
+        institution.close()
+        flash('EL Registro se ha actualizado satisfactoriamente')
+        return redirect(url_for('institution'))
+
 if __name__ == '__main__':
     app.run(port = 3000, debug = True)

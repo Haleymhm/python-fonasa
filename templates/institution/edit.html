@@ -3,17 +3,34 @@
 {% block body %}
 <div class="container">
     <div class="bg-light p-2 rounded">
-        <h3><strong>Editar Especialidad </strong> </h3>
+        <h3><strong>Editar Centro Médico </strong> </h3>
         <div class="row">
             <div class="col-md-4 offset-md-4 mb-3">
                 <div class="card card-body">
-                    <form action="/specialty-update/{{specialty.0}}" method="post">
+                    <form action="/institution-update/{{institution.0}}" method="post">
                         <div class="form-group mb-3">
-                            <input type="text" name="fullname" value="{{specialty.1}}" class="form-control" placeholder="Especialidad">
+                            <input type="text" name="fullname" value="{{institution.1}}" class="form-control" placeholder="Especialidad">
+                        </div>
+                        <div class="form-group mb-3">
+                            <select name="comuna_id" id="comuna_id" class="form-control" placeholder="Comuna">
+                                <option value="0"> Selecione una Comuna</option>
+                            {% for comuna in comunas %}
+                                <option value="{{comuna.0}}"
+                                {% if comuna.0 == institution.3 %}
+                                    selected
+                                {% endif %}
+                                > {{comuna.2}}</option>
+                            {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label class="form-label">Dirección: </label>
+                            <textarea name="direction" id="direction" class="form-control" placeholder="Dirección" rows="3">{{institution.2}}</textarea>
+
                         </div>
                         
                         <div class="class="btn-group" role="group" aria-label="Basic example">
-                            <a href="/specialty" class="btn btn-secondary"><i class="fa fa-undo fa-lg"></i> Volver</a>
+                            <a href="/institution" class="btn btn-secondary"><i class="fa fa-undo fa-lg"></i> Volver</a>
                             <button type="submit" class="btn btn-success btn-block"><i class="fa fa-save fa-lg"></i> Guardar</button>
                         </div>          
                     </form>
