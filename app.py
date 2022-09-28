@@ -205,15 +205,38 @@ def institution_update(id):
 @app.route('/patient')
 def patient():
     patient = mysql.connection.cursor()
-    patient.execute('SELECT institution.id, institution.name, comunas.comuna FROM institution, comunas WHERE institution.comuna_id = comunas.id')
+    patient.execute('SELECT * FROM patients')
     data = patient.fetchall()
     patient.close()
-    comuna = mysql.connection.cursor()
-    comuna.execute('SELECT * FROM comunas')
-    data1 = comuna.fetchall()
-    comuna.close()
-    return render_template('patient/index.html', institutions = data, comunas = data1) 
+    return render_template('patient/index.html', patients = data) 
 
+@app.route('/patient-add', methods=['POST'])
+def patient_add():
+    if request.method == 'POST':
+        rut = request.form['rut']
+        fullname = request.form['fullname']
+        age = request.form['age']
+        height = request.form['height']
+        weight = request.form['weight']
+        smoker = request.form['smoker']
+        smoker_time = request.form['smoker-time']
+        diet = request.form['diet']
 
+        patient = mysql.connection.cursor()
+        sql = "INSERT INTO patients (rut, fullname, age ,height, weight,smoker, smoker_time, diet) VALUES ('"+rut+"','"+fullname+"','"+age+"', '"+height+"','"+weight+"','"+smoker+"','"+smoker_time+"','"+diet+"')"
+        
+        patient.execute(sql)
+        mysql.connection.commit()
+        patient.close()
+        flash('EL Registro se ha registrado satisfactoriamente')
+        return redirect(url_for('patient'))
+
+@app.route('/patient-delete/<string:id>', methods=['POST', 'GET'])
+def patient_delete(id):
+    patient = mysql.connection.cursor()
+    patient.execute('DELETE FROM patient WHERE id = {0}'.format(id))
+    mysql.connection.commit()
+    flash('El registro se ha ELIMINADO satisfactoriamente')
+    return redirect(url_for('patient'))
 if __name__ == '__main__':
     app.run(port = 3000, debug = True)
