@@ -234,7 +234,7 @@ def patient_add():
 @app.route('/patient-delete/<string:id>', methods=['POST', 'GET'])
 def patient_delete(id):
     patient = mysql.connection.cursor()
-    patient.execute('DELETE FROM patient WHERE id = {0}'.format(id))
+    patient.execute('DELETE FROM patients WHERE id = {0}'.format(id))
     mysql.connection.commit()
     flash('El registro se ha ELIMINADO satisfactoriamente')
     return redirect(url_for('patient'))

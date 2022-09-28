@@ -92,16 +92,36 @@
                     <thead>
                         <tr class="table-primary text-center">
                             <td>ID</td>
-                            <td>Especialidad</td>
-                            <td></td>
+                            <td>RUT</td>
+                            <td>Nombre del paciente</td>
+                            <td>Edad</td>
+                            <td>Fumador</td>
+                            <td>Dieta</td>
+                            <td width="155px"></td>
                         </tr>
                     </thead>
-                    {% for specialty in specialties %}
-                    <td class="text-center">{{specialty.0}}</td>
-                    <td>{{specialty.1}}</td>
-                    <td width="155px">
-                        <a href="/specialty-edit/{{specialty.0}}" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i> edit</a>
-                        <a href="/specialty-delete/{{specialty.0}}" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> delete</a>
+                    {% for patient in patients %}
+                    <td class="text-center">{{patient.0}}</td>
+                    <td>{{patient.1}}</td>
+                    <td>{{patient.2}}</td>
+                    <td class="text-center">{{patient.3}}</td>
+                    <td class="text-center">
+                        {% if patient.6 == "SI" %}
+                            <h5><span class="badge bg-danger">SI</span></h5>
+                        {% else %}
+                            <h5><span class="badge bg-info">NO</span></h5>
+                        {% endif %}
+                    </td>
+                    <td class="text-center">
+                        {% if patient.8 == "SI" %}
+                            <h5><span class="badge bg-warning">SI</span></h5>
+                        {% else %}
+                            <h5><span class="badge bg-info">NO</span></h5>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="/patient-edit/{{patient.0}}" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i> edit</a>
+                        <a href="/patient-delete/{{patient.0}}" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> delete</a>
                     </td>
                 </tr>
                 {% endfor %}
