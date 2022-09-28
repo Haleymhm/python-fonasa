@@ -24,7 +24,10 @@ Tener instalado Python 3.x,  Mysql 5.6 o superior
     ``` 
     sudo apt-get install libmysqlclient-dev 
     ```
-4. Iniciar la aplicación
+4. Crear la base de datos e importar la estructura desde el archivo Estructura_db.sql
+
+
+5. Iniciar la aplicación
     ``` 
     python App.py  
     ```
