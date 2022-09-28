@@ -238,5 +238,34 @@ def patient_delete(id):
     mysql.connection.commit()
     flash('El registro se ha ELIMINADO satisfactoriamente')
     return redirect(url_for('patient'))
+
+@app.route('/patient-edit/<id>', methods=['POST', 'GET'])
+def patient_edit(id):
+    patient = mysql.connection.cursor()
+    sql = "SELECT * FROM patients WHERE id="+id
+    patient.execute(sql)
+    data = patient.fetchall()
+    patient.close()
+    return render_template('pacient/edit.html', patient = data[0])
+
+@app.route('/patient-update/<id>', methods=['POST'])
+def patient_update(id):
+    if request.method == 'POST':
+        fullname = request.form['fullname']
+        age = request.form['age']
+        height = request.form['height']
+        weight = request.form['weight']
+        smoker = request.form['smoker']
+        smoker_time = request.form['smoker-time']
+        diet = request.form['diet']
+        patient = mysql.connection.cursor()
+        sql = "UPDATE  patients SET  fullname='"+fullname+"', age='"+age+"', height='"+height+"', weight='"+weight+"', smoker='"+smoker+"', smoker_time='"+smoker_time+"', diet='"+diet+"' WHERE id='"+id+"'"
+        
+        patient.execute(sql)
+        mysql.connection.commit()
+        patient.close()
+        flash('EL Registro se ha registrado satisfactoriamente')
+        return redirect(url_for('patient'))
+
 if __name__ == '__main__':
     app.run(port = 3000, debug = True)

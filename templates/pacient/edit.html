@@ -11,22 +11,22 @@
                         <div class="row mb-3">
                             <div class="col-md-4">
                                 <label class="form-label">RUT:</label>
-                                <input type="text" name="rut" id="rut"  class="form-control" placeholder="RUT" >
+                                <input type="text" name="rut" id="rut"  class="form-control" placeholder="RUT" value="{{patient.1}}"  disabled>
                             </div>
                             <div class="col-md-8">
                                 <label class="form-label">Nombre Completo</label>
-                                <input type="text" name="fullname" id="height" class="form-control" placeholder="Nombre completo">
+                                <input type="text" name="fullname" id="height" class="form-control" value="{{patient.2}}" placeholder="Nombre completo">
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col-md-4">
                                 <label class="form-label">Edad:</label>
-                                <input type="number" name="age" id="age" class="form-control" placeholder="Edad" >
+                                <input type="number" name="age" id="age" class="form-control" placeholder="Edad" value="{{patient.3}}">
                             </div>
                             <div class="col-md-4">
                                 <label class="form-label">Estatura:</label>
                                 <div class="input-group mb-3">
-                                    <input type="number" name="height" id="height" class="form-control" placeholder=" ej: 180" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                    <input type="number" name="height" id="height" class="form-control" value="{{patient.5}}" placeholder=" ej: 180" aria-label="Recipient's username" aria-describedby="basic-addon2">
                                     <span class="input-group-text" id="basic-addon2">cm</span>
                                 </div>
 
@@ -34,7 +34,7 @@
                             <div class="col-md-4">
                                 <label class="form-label">Peso:</label>
                                 <div class="input-group mb-3">
-                                    <input type="number" name="weight" id="weight" class="form-control" placeholder="Peso. ej: 128.5 kg" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                    <input type="number" name="weight" id="weight" class="form-control" value="{{patient.4}}" placeholder="Peso. ej: 128.5 kg" aria-label="Recipient's username" aria-describedby="basic-addon2">
                                     <span class="input-group-text" id="basic-addon2">kg</span>
                                 </div>
                             </div>
@@ -45,20 +45,33 @@
                                 <label class="form-label">Es fumador?:</label>
                                 <select name="smoker" id="smoker" class="form-control">
                                     <option value="0"> Seleccione una opción</option>
-                                    <option value="SI">SI</option>
+                                {% if patient.6 == "SI" %}
+                                    <option value="SI" selected>SI</option>
                                     <option value="NO">NO</option>
+                                {% else %}
+                                    <option value="SI">SI</option>
+                                    <option value="NO" selected>NO</option>
+                                {% endif %}
                                 </select>
                             </div>
                             <div class="col-md-4">
                                 <label class="form-label">Tiempo Fumando??:</label>
-                                <input type="number" class="form-control" name="smoker-time">
+                                <div class="input-group mb-3">
+                                    <input type="number" name="smoker-time" id="smoker-time" class="form-control" value="{{patient.7}}">
+                                    <span class="input-group-text" id="basic-addon2">años</span>
+                                </div>
                             </div>
                             <div class="col-md-4">
                                 <label class="form-label">Posee dieta?:</label>
                                 <select name="diet" id="diet" class="form-control">
                                     <option value="0">Seleccione una opción</option>
-                                    <option value="SI"> SI</option>
+                                {% if patient.8 == "SI" %}
+                                    <option value="SI" selected>SI</option>
                                     <option value="NO">NO</option>
+                                {% else %}
+                                    <option value="SI">SI</option>
+                                    <option value="NO" selected>NO</option>
+                                {% endif %}
                                 </select>  
                             </div>
                         </div>
@@ -80,7 +93,4 @@
     </div>
 </div>
     
-
-
-<a href="/institution" class="btn btn-secondary"><i class="fa fa-undo fa-lg"></i> Volver</a>
 {% endblock %}
