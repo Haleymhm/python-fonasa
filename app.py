@@ -134,7 +134,18 @@ def specialist_update(id):
         return redirect(url_for('specialist'))
 # FIN DE MODULO ESPECIALISTA 
 
-
+# INICIO DE MODULO ESPECAILISTA
+@app.route('/institution')
+def institution():
+    institution = mysql.connection.cursor()
+    institution.execute('SELECT institution.id, institution.name, comunas.comuna FROM institution, comunas WHERE institution.comuna_id = comunas.id')
+    data = institution.fetchall()
+    institution.close()
+    comuna = mysql.connection.cursor()
+    comuna.execute('SELECT * FROM comunas')
+    data1 = comuna.fetchall()
+    comuna.close()
+    return render_template('institution/index.html', institutions = data, comunas = data1) 
 
 if __name__ == '__main__':
     app.run(port = 3000, debug = True)
