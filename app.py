@@ -16,7 +16,7 @@ app.secret_key = "mysecretkey"
 
 @app.route('/')
 def Index():
-    return render_template('index.html')
+    return render_template('home.html')
 
 # INICIO DE MODULO ESPECILIDADES
 @app.route('/specialty')
