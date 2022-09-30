@@ -42,7 +42,7 @@
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav me-auto mb-2 mb-md-0">
               <li class="nav-item">
-                <a class="nav-link" href="/">Home</a>
+                <a class="nav-link" href="/home">Home</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="/patient">Pacientes</a>
@@ -59,9 +59,13 @@
                   <li><a class="dropdown-item" href="/institution">Centro Médico</a></li>
                 </ul>
               </li>
-              
+              <a class="btn btn-secondary btn-sm mt-2">Crear Cita</a>
             </ul>
-            <button class="btn btn-secondary my-2 my-sm-0" type="submit">Crear Cita</button>
+            <span class="badge rounded-pill bg-secondary"><h5 style="margin-left: 10px; margin-right: 10px;margin-top: 5px;"> {{ session['fullname'] }}  
+              <a href="/logout" class="alert-link" data-bs-toggle="tooltip" title="Cerrar Sesión!">
+                <i class="fa fa-power-off" style="color:#C0392B" aria-hidden="true"></i>
+              </a></h5>
+            </span>            
           </div>
         </div>
       </nav>

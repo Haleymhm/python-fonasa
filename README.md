@@ -31,3 +31,9 @@ Tener instalado Python 3.x,  Mysql 5.6 o superior
     ``` 
     python App.py  
     ```
+
+5. Datos para inicio de sesion
+    ``` 
+    user: ha@localhost.dev
+    pass: 123456  
+    ```
