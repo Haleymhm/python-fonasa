@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 from flask_mysqldb import MySQL
+import hashlib
 
 app = Flask(__name__)
 
@@ -14,6 +15,14 @@ mysql = MySQL(app)
 # settings SESSION
 app.secret_key = "mysecretkey"
 
+@app.before_request
+def protected_request():
+    ruta = request.path
+    if not 'loggedin' in session:
+        if ruta != "/login" and ruta != "/hacer_login" and ruta != "/logout" and not ruta.startswith("/static"):
+            flash('Debe iniciar sision')
+            return render_template('login.html')
+
 
 @app.route('/') 
 @app.route('/login', methods =['GET', 'POST']) 
@@ -21,7 +30,9 @@ def login():
     if request.method == 'POST': 
         username = request.form['email'] 
         password = request.form['password']
-        sql = "SELECT * FROM users WHERE email='"+username+"' AND password='"+password+"'"
+        result = hashlib.md5(password.encode())
+        pass_has = result.hexdigest()
+        sql = "SELECT * FROM users WHERE email='"+username+"' AND password='"+pass_has+"'"
         user = mysql.connection.cursor()
         user.execute(sql)
         data = user.fetchall()
@@ -49,7 +60,9 @@ def Logout():
 
 @app.route('/home')
 def Home():
-    return render_template('home.html')
+    
+    #print(username)
+    return render_template('home.html', username = session['fullname'])
 
 # INICIO DE MODULO ESPECILIDADES
 @app.route('/specialty')
