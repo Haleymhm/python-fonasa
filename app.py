@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for, flash, session
 from flask_mysqldb import MySQL
 
 app = Flask(__name__)
@@ -14,9 +14,38 @@ mysql = MySQL(app)
 # settings SESSION
 app.secret_key = "mysecretkey"
 
-@app.route('/')
-def Index():
+
+@app.route('/') 
+@app.route('/login', methods =['GET', 'POST']) 
+def login(): 
+    if request.method == 'POST': 
+        username = request.form['email'] 
+        password = request.form['password']
+        sql = "SELECT * FROM users WHERE email='"+username+"' AND password='"+password+"'"
+        user = mysql.connection.cursor()
+        user.execute(sql)
+        data = user.fetchall()
+        account = data
+        user.close()
+
+        if account :
+            userlog = data[0]
+            session['loggedin'] = True
+            session['id'] = userlog[0]
+            session['fullname'] = userlog[1]
+            print(userlog[1])
+            return redirect(url_for('Home'))
+        else:
+            flash('Error usuario y/o contraseña')
+
     return render_template('login.html')
+
+@app.route('/logout')
+def Logout():
+    session.pop('loggedin', None) 
+    session.pop('id', None) 
+    session.pop('fullname', None) 
+    return redirect(url_for('login'))
 
 @app.route('/home')
 def Home():
